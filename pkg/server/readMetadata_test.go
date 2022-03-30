@@ -2,6 +2,7 @@ package server
 
 import (
 	pb "challenge/pkg/proto"
+	"challenge/pkg/service"
 	"context"
 	"testing"
 
@@ -41,7 +42,7 @@ func TestChallengeService_ReadMetadata(t *testing.T) {
 		},
 	}
 
-	s := NewChallengeService(ChallengeServiceConfig{})
+	s := NewChallengeServer(&service.Service{})
 
 	go StartGRPCServer(s, ":8098")
 

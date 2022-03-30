@@ -1,0 +1,3 @@
+BITLY_URL: "https://api-ssl.bitly.com/v4/shorten"
+TIMER_URL: "https://timercheck.io"
+PORT: ":8098"

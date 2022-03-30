@@ -7,30 +7,28 @@ import (
 
 	middlewareLogger "challenge/pkg/logger"
 
+	"challenge/pkg/service"
+
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	"github.com/rs/zerolog/log"
 	"google.golang.org/grpc"
 )
 
-type ChallengeServiceConfig struct {
-	AccessToken string
-}
-
-type ChallengeService struct {
+type ChallengeServer struct {
 	pb.UnimplementedChallengeServiceServer
-	ChallengeServiceConfig
+	service *service.Service
 }
 
-// func (s *Server) StartTimer(*Timer, ChallengeService_StartTimerServer) error {
+// func (s *Server) StartTimer(*Timer, ChallengeServer_StartTimerServer) error {
 // 	return status.Errorf(codes.Unimplemented, "method StartTimer not implemented")
 // }
 
-func NewChallengeService(cfg ChallengeServiceConfig) *ChallengeService {
-	return &ChallengeService{ChallengeServiceConfig: cfg}
+func NewChallengeServer(s *service.Service) *ChallengeServer {
+	return &ChallengeServer{service: s}
 }
 
 // Init grpc server and start him
-func StartGRPCServer(server *ChallengeService, port string) {
+func StartGRPCServer(server *ChallengeServer, port string) {
 	listen, err := net.Listen("tcp", port)
 	if err != nil {
 		log.Panic().Msgf("Error in listen %s", err.Error())

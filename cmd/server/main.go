@@ -2,22 +2,18 @@ package main
 
 import (
 	"challenge/pkg/config"
+	"challenge/pkg/repository"
 	"challenge/pkg/server"
-	"flag"
+	"challenge/pkg/service"
 
 	"github.com/rs/zerolog/log"
-	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 )
 
 func main() {
-	flag.String("config", "configs/local", "display colorized output")
-	pflag.CommandLine.AddGoFlagSet(flag.CommandLine)
-	pflag.Parse()
-
-	err := viper.BindPFlags(pflag.CommandLine)
+	err := config.LoadFlags()
 	if err != nil {
-		log.Panic().Msgf("Error parse flag config path: %s", err)
+		log.Panic().Msgf("Error load flags: %s", err.Error())
 	}
 
 	cfg, err := config.Load(viper.GetString("config"))
@@ -25,9 +21,19 @@ func main() {
 		log.Panic().Msgf("Error init config: %s", err.Error())
 	}
 
-	s := server.NewChallengeService(server.ChallengeServiceConfig{
-		AccessToken: cfg.BitlyOAuthToken,
-	})
+	repo := repository.NewRepository(make(map[string][]repository.StreamChannels))
+
+	service := service.NewService(service.ServiceConfig{
+		ShortLinkServiceConfig: service.ShortLinkServiceConfig{
+			BitlyURL:    cfg.BitlyURL,
+			AccessToken: cfg.BitlyOAuthToken,
+		},
+		TimerServiceConfig: service.TimerServiceConfig{
+			TimerURL: cfg.TimerURL,
+		},
+	}, repo)
+
+	s := server.NewChallengeServer(service)
 
 	server.StartGRPCServer(s, cfg.Port)
 }

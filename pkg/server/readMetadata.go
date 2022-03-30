@@ -10,17 +10,17 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (s *ChallengeService) ReadMetadata(ctx context.Context, in *pb.Placeholder) (*pb.Placeholder, error) {
+func (s *ChallengeServer) ReadMetadata(ctx context.Context, in *pb.Placeholder) (*pb.Placeholder, error) {
 	md, ok := metadata.FromIncomingContext(ctx)
 	if !ok {
-		return nil, status.Error(codes.InvalidArgument, "Empty metadata")
+		return nil, status.Errorf(codes.InvalidArgument, "Empty metadata")
 	}
 
 	arrData := md.Get("i-am-random-key")
 
 	data := strings.Join(arrData, ",")
 	if data == "" {
-		return nil, status.Error(codes.InvalidArgument, "Empty i-am-random-key")
+		return nil, status.Errorf(codes.InvalidArgument, "Empty i-am-random-key")
 	}
 
 	resp := &pb.Placeholder{Data: data}

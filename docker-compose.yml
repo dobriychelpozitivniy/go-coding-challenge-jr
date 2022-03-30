@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  service:
+    container_name: service
+    build: .
+    ports:
+      - "8098:8098"
+    environment:
+      - BITLY_OAUTH_TOKEN
