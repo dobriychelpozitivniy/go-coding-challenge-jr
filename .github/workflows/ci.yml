@@ -42,5 +42,6 @@ jobs:
         BITLY_OAUTH_TOKEN: ${{secrets.BITLY_OAUTH_TOKEN}}
       run: |
         docker build --build-arg BITLY_OAUTH_TOKEN -t ghcr.io/dobriychelpozitivniy/go-coding-challenge-jr:latest .
-        docker run -e BITLY_OAUTH_TOKEN ghcr.io/dobriychelpozitivniy/go-coding-challenge-jr:latest
         docker push ghcr.io/dobriychelpozitivniy/go-coding-challenge-jr:latest
+      #  docker run -e BITLY_OAUTH_TOKEN ghcr.io/dobriychelpozitivniy/go-coding-challenge-jr:latest
+        
