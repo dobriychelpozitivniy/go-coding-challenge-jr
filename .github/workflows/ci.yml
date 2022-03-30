@@ -39,5 +39,5 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build . 
+        docker build -t ghcr.io/jonashackt/dobriychelpozitivniy/go-coding-challenge-jr:latest .
         docker push ghcr.io/jonashackt/dobriychelpozitivniy/go-coding-challenge-jr:latest
