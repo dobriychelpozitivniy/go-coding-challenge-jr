@@ -25,15 +25,15 @@ func main() {
 
 	service := service.NewService(service.ServiceConfig{
 		ShortLinkServiceConfig: service.ShortLinkServiceConfig{
-			BitlyURL:    cfg.BitlyURL,
-			AccessToken: cfg.BitlyOAuthToken,
+			BitlyURL:    *cfg.BitlyURL,
+			AccessToken: *cfg.BitlyOAuthToken,
 		},
 		TimerServiceConfig: service.TimerServiceConfig{
-			TimerURL: cfg.TimerURL,
+			TimerURL: *cfg.TimerURL,
 		},
 	}, repo)
 
 	s := server.NewChallengeServer(service)
 
-	server.StartGRPCServer(s, cfg.Port)
+	server.StartGRPCServer(s, *cfg.Port)
 }

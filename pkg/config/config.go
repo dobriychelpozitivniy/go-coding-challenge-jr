@@ -10,10 +10,10 @@ import (
 )
 
 type Config struct {
-	Port            string `mapstructure:"PORT"`
-	BitlyOAuthToken string `mapstructure:"BITLY_OAUTH_TOKEN"`
-	BitlyURL        string `mapstructure:"BITLY_URL"`
-	TimerURL        string `mapstructure:"TIMER_URL"`
+	Port            *string `mapstructure:"PORT"`
+	BitlyOAuthToken *string `mapstructure:"BITLY_OAUTH_TOKEN"`
+	BitlyURL        *string `mapstructure:"BITLY_URL"`
+	TimerURL        *string `mapstructure:"TIMER_URL"`
 }
 
 func LoadFlags() error {

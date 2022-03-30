@@ -25,11 +25,11 @@ func TestChallengeServer_StartTimer(t *testing.T) {
 
 	service := service.NewService(service.ServiceConfig{
 		ShortLinkServiceConfig: service.ShortLinkServiceConfig{
-			BitlyURL:    cfg.BitlyURL,
-			AccessToken: cfg.BitlyOAuthToken,
+			BitlyURL:    *cfg.BitlyURL,
+			AccessToken: *cfg.BitlyOAuthToken,
 		},
 		TimerServiceConfig: service.TimerServiceConfig{
-			TimerURL: cfg.TimerURL,
+			TimerURL: *cfg.TimerURL,
 		},
 	}, repo)
 
