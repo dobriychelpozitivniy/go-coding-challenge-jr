@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"google.golang.org/grpc/codes"
@@ -56,6 +57,9 @@ func (s *ShortLinkService) GetShortLink(ctx context.Context, longUrl string) (st
 	if err != nil || resp.StatusCode > 400 {
 		return "", status.Errorf(codes.Internal, "Error do request to bitly: %s", err)
 	}
+
+	fmt.Println(resp.StatusCode)
+	fmt.Println(resp.Body)
 
 	if resp.StatusCode == 400 {
 		return "", status.Errorf(codes.InvalidArgument, "Error do request to bitly: %s", err)
