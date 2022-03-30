@@ -11,7 +11,5 @@ FROM gcr.io/distroless/base-debian10
 COPY --from=builder /build/service /app/
 COPY --from=builder /build/configs /app/configs/
 
-LABEL org.opencontainers.image.source="https://github.com/dobriychelpozitivniy/go-coding-challenge-jr"
-
 # executable
 ENTRYPOINT [ "/app/service", "--config", "/app/configs/prod" ]
