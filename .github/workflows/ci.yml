@@ -24,6 +24,7 @@ jobs:
         BITLY_OAUTH_TOKEN: ${{secrets.BITLY_OAUTH_TOKEN}}
       
   publish:
+    needs: test
     runs-on: ubuntu-latest
 
     steps:
