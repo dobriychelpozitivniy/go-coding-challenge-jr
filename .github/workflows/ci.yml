@@ -38,6 +38,8 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Build Docker image
+      env:
+        BITLY_OAUTH_TOKEN: ${{secrets.BITLY_OAUTH_TOKEN}}
       run: |
         docker build -t ghcr.io/dobriychelpozitivniy/go-coding-challenge-jr:latest .
         docker run ghcr.io/dobriychelpozitivniy/go-coding-challenge-jr:latest
