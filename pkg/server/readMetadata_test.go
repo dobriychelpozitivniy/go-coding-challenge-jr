@@ -5,6 +5,7 @@ import (
 	"challenge/pkg/service"
 	"context"
 	"testing"
+	"time"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
@@ -45,6 +46,8 @@ func TestChallengeService_ReadMetadata(t *testing.T) {
 	s := NewChallengeServer(&service.Service{})
 
 	go StartGRPCServer(s, ":8098")
+
+	time.Sleep(time.Second * 3)
 
 	conn, err := grpc.Dial(":8098", grpc.WithInsecure())
 	if err != nil {
